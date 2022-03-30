@@ -225,4 +225,6 @@ centrality_functions = [
 for f in centrality_functions:
     result = map_centrality_list(f(graph), labels)
     sn100_rank = find_sn100(result)
-    print(f"Function: {f.__name__}, most important dolphin: {result[0]}, SN100 rank: {sn100_rank}")
+    print(f"Function: {f.name}, most important dolphin: {result[0]} \
+        \n\tSN100 rank: {sn100_rank}, value: {result[sn100_rank-1][1]}")
+    print()
