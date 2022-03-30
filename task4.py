@@ -39,7 +39,9 @@ def plot():
     cutoff = 3
     cutoff_induced = 4
 
-    # Original graph distribution, gamma
+    """
+    Original graph distribution, gamma
+    """
     graph, labels = read_graph("social", directed=False)
     n = graph.number_of_nodes()
     # print(f"Checking if our original graph is small world.")
@@ -50,9 +52,10 @@ def plot():
     gamma = calculate_gamma(degrees, cutoff)
     # print(f"Gamma for original graph (cutoff {cutoff}): {gamma}\n")
     distribution = degree_distribution(degrees, n)
-    max_degree = max(degrees)
-
-    # Random walk induced graph and the distribution
+    
+    """
+    Random walk induced graph and the distribution
+    """
     induced = random_walk_induced_graph(graph)
     n_induced = induced.number_of_nodes()
     # print(f"Checking if our induced graph is small world.")
@@ -64,20 +67,11 @@ def plot():
     print(f"Gamma for induced graph (cutoff {cutoff_induced}): {gamma_induced}\n")
     distribution_induced = degree_distribution(degrees_induced, n_induced)
     
-    # Power laws
-    power_law_x = range(1, max_degree + 1)
-    power_law_original = [elem ** (-gamma) for elem in power_law_x]
-    power_law_induced = [elem ** (-gamma_induced) for elem in power_law_x]
-    
     # Plot
     plt.style.use("ggplot")
     plt.figure(figsize=(13, 7))
     plt.plot(distribution.keys(), distribution.values(), 'o', color="firebrick", label=f"Original graph deg. dis.")
     plt.plot(distribution_induced.keys(), distribution_induced.values(), 'X', color="dodgerblue", label=f"Induced graph deg. dis.")
-    plt.plot(power_law_x, power_law_induced, "--", color="forestgreen", 
-        label=f"Power-law for induced graph, gamma {round(gamma_induced, 2)}, cutoff {cutoff_induced}")
-    plt.plot(power_law_x, power_law_original, "--", color="goldenrod", 
-        label=f"Power-law for original graph, gamma {round(gamma, 2)}, cutoff {cutoff}")
     plt.xlabel("Induced graph degrees")
     plt.ylabel("Distribution p_k / power-law k^(-gamma)")
     plt.xscale("log")
@@ -98,10 +92,10 @@ Gamma for original graph (cutoff 3): 2.0605610597029367
 Gamma for original graph (cutoff 4): 2.152434367238218
 Gamma for original graph (cutoff 5): 2.232880279297983
 
-Checking if our induced graph is ultra small world.
-        Average distance: 5.525734584346886
-        ln(n) / ln(<k>): 2.969112093861218
-        Average clustering: 0.46075452939143896
+Checking if our induced graph is small world.
+        Average distance: 5.37645890153709
+        ln(n) / ln(<k>): 2.9585690314304176
+        Average clustering: 0.5219598869809366
 Gamma for induced graph (cutoff 3): 1.7318751394190044 (varies between 1.7x and 1.8x)
 Gamma for induced graph (cutoff 4): 1.8966716742827932 (varies between 1.8x and 1.9x)
 Gamma for induced graph (cutoff 5): 2.06510132214632 (varies between 1.9x and 2.0x)
