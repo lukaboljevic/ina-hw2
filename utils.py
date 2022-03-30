@@ -37,7 +37,7 @@ def degree_distribution(sequence, n):
     for degree in sequence:
         distribution[degree] += 1
     # import json
-    # print(json.dumps(dict(sorted(distribution.items(), key=lambda elem: elem[1], reverse=True)), indent=4))
+    # print(json.dumps(dict(sorted(distribution.items(), key=lambda elem: elem[0], reverse=True)), indent=4))
     for degree in distribution:
         distribution[degree] /= n
     return distribution
@@ -51,4 +51,4 @@ def calculate_gamma(degree_sequence, cutoff):
     #         new_n += 1
     # return 1 + new_n / s
     cutoff_degrees = [degree for degree in degree_sequence if degree >= cutoff]
-    return 1 + len(cutoff_degrees) / (sum([log(elem / (cutoff - 0.5)) for elem in cutoff_degrees]))
+    return 1 + len(cutoff_degrees) / (sum([log(deg / (cutoff - 0.5)) for deg in cutoff_degrees]))
