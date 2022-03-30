@@ -92,18 +92,23 @@ def mu_clustering_centrality(G):
 ##### Closeness centrality #####
 ################################
 
-def get_distances(G, start):
-    D = {}
-    Q = []
-    D[start] = 0
-    Q.append(start)
-    while Q:
-        node = Q.pop(0)
-        for j in G[node]:
-            if j not in D:
-                D[j] = D[node] + 1
-                Q.append(j)
-    return [d for d in D.values() if d > 0]
+def get_distances(graph, start):
+    """
+    Return a list of distances starting from
+    this node - i.e. how far away every
+    other node is from the starting node
+    """
+    distances = {}
+    queue = []
+    distances[start] = 0
+    queue.append(start)
+    while queue:
+        node = queue.pop(0)
+        for neighbor in graph[node]:
+            if neighbor not in distances:
+                distances[neighbor] = distances[node] + 1
+                queue.append(neighbor)
+    return [d for d in distances.values() if d > 0]
 
 def closeness_centrality(G):
     """
